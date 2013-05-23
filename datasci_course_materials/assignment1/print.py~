@@ -1,0 +1,11 @@
+import urllib
+import json
+
+for i in range(1,10):
+   response = urllib.urlopen("http://search.twitter.com/search.json?q=microsoft&page=" + str(i))
+   allTweets = json.load(response)
+   for line in allTweets["results"]:
+      print line
+#   for key in line.keys():
+#       print "key: %s , value: %s" % (key, mydictionary[key])
+#     print line["text"]

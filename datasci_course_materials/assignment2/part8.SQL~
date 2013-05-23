@@ -1,0 +1,19 @@
+--SELECT matches.doc1, matches.doc2, SUM(square)
+--FROM (
+--     SELECT x.docid as doc1, y.docid as doc2, x.count * y.count as square
+--     FROM Frequency x, Frequency y
+--     WHERE x.term="10080_txt_crude" AND y.docid="17035_txt_earn"
+--     	   AND x.term == y.term
+--) matches
+--GROUP BY x.docid, y.docid;
+
+SELECT SUM(square)
+--SELECT matches.doc1, matches.doc2, SUM(square)
+FROM (
+	SELECT x.docid as doc1, y.docid as doc2, x.count * y.count as square
+	FROM Frequency x, Frequency y
+--	WHERE x.docid="10080_txt_crude" AND y.docid="17035_txt_earn"
+	WHERE x.term == y.term
+) matches
+WHERE matches.doc1="10080_txt_crude" AND matches.doc2="17035_txt_earn"
+GROUP BY matches.doc1, matches.doc2;

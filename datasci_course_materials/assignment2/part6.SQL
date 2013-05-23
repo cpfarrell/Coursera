@@ -1,0 +1,14 @@
+--SELECT *
+SELECT count(*)
+FROM (
+--        SELECT DISTINCT x.docid
+--        FROM Frequency x
+--        WHERE x.term="transactions" AND x.count>0
+--	WHERE x.term="world" AND x.count>0
+
+	SELECT DISTINCT x.docid
+	FROM Frequency x, Frequency y
+	WHERE x.term="transactions" AND x.count>0
+	      AND y.term="world" AND y.count>0
+	      AND x.docid=y.docid
+) x;
