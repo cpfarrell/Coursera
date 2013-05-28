@@ -70,17 +70,13 @@ a2 = [ones(size(a2, 1),1) a2];
 
 z3 = a2 * Theta2';
 h_theta = sigmoid(z3);
-y_matrix = zeros(m, num_labels);
 
-%sel = randperm(size(y, 1));
-%sel = sel(1:10);
-%y(sel, 1)
+y_matrix = zeros(m, num_labels);
 
 %Can't think of a way to do this without for loop
 for i = 1:num_labels
     y_matrix(:, i) = (y == i);
 end
-%y_matrix(sel, :)
 
 J_nonReg = sum(sum(-y_matrix .* log(h_theta) - (1-y_matrix) .* log(1 - h_theta))) ./ rows(y_matrix);
 
@@ -90,36 +86,14 @@ Squares2 = Theta2(:, 2:end) .* Theta2(:, 2:end);
 J = J_nonReg + (lambda/(2*m)) * (sum(Squares1(:)) + sum(Squares2(:)));
 
 delta3 = h_theta - y_matrix;
-%size(Theta2')
 delta2 = delta3 * Theta2(:, 2:end) .* sigmoidGradient(z2);
-%size(delta2)
-%size(delta3)
-%size(a2)
-%size(delta3' * a2)
 Theta2_grad_nonReg = (delta3' * a2)/m;
-%size(Theta2_grad_nonReg)
-%size(Theta2)
 Theta2_grad = Theta2_grad_nonReg + (lambda/m) * Theta2;
-%size(Theta1)
 Theta2_grad(:,1) = Theta2_grad_nonReg(:,1);
 
-%size(Theta2)
-%size(Theta2_grad)
-
-
-%size(X)
-%size(delta2)
-%size(delta2' * X)
 Theta1_grad_nonReg = (delta2' * X)/m;
 Theta1_grad = Theta1_grad_nonReg + (lambda/m) * Theta1;
 Theta1_grad(:,1) = Theta1_grad_nonReg(:,1);
-%size(Theta1_grad)
-%size(Theta1)
-
-%grad_nonReg = (X' * (h_theta - y)) ./ rows(y);
-%grad_Reg = (lambda / m) * theta;
-%grad_Reg(1) = 0;
-%grad = grad_nonReg + grad_Reg;
 
 
 
